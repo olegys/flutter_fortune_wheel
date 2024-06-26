@@ -207,8 +207,13 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
 
     useEffect(() {
       final subscription = selected.listen((event) {
-        selectedIndex.value = event;
-        animate();
+        if (event == -1) {
+          rotateAnimCtrl.repeat();
+        } else {
+          rotateAnimCtrl.stop();
+          selectedIndex.value = event;
+          animate();
+        }
       });
       return subscription.cancel;
     }, []);
