@@ -7,18 +7,18 @@ class TriangleIndicator extends StatelessWidget {
   final double elevation;
 
   const TriangleIndicator({
-    Key? key,
+    super.key,
     this.color,
     this.width = 36.0,
     this.height = 36.0,
     this.elevation = 2,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Transform.rotate(
-      angle: _math.pi,
+      angle: math.pi,
       child: SizedBox(
         width: width,
         height: height,

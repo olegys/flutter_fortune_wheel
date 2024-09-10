@@ -26,7 +26,7 @@ void main() {
             tester,
             FortuneWheel(
               animateFirst: false,
-              selected: Stream.empty(),
+              selected: const Stream.empty(),
               onAnimationStart: onStart,
               onAnimationEnd: onEnd,
               items: testItems,
@@ -58,7 +58,7 @@ void main() {
             tester,
             FortuneWheel(
               animateFirst: true,
-              selected: Stream.empty(),
+              selected: const Stream.empty(),
               onAnimationStart: onStart,
               onAnimationEnd: onEnd,
               items: testItems,

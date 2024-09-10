@@ -112,6 +112,7 @@ class UniformStyleStrategy
   final double? borderWidth;
   final TextAlign? textAlign;
   final TextStyle? textStyle;
+  @override
   final List<int> disabledIndices;
 
   const UniformStyleStrategy({
@@ -154,6 +155,7 @@ class UniformStyleStrategy
 class AlternatingStyleStrategy
     with DisableAwareStyleStrategy
     implements StyleStrategy {
+  @override
   final List<int> disabledIndices;
 
   Color _getFillColor(ThemeData theme, int index, int itemCount) {

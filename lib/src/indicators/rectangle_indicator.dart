@@ -6,11 +6,11 @@ class RectangleIndicator extends StatelessWidget {
   final Color color;
 
   const RectangleIndicator({
-    Key? key,
+    super.key,
     this.borderWidth = 2,
     this.borderColor,
     this.color = Colors.transparent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class RectangleIndicator extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Transform.rotate(
-              angle: _math.pi,
+              angle: math.pi,
               child: SizedBox(
                 width: width / 2,
                 height: height / 10,

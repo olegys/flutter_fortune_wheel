@@ -13,41 +13,41 @@ Offset _calculateWheelOffset(
 }
 
 double _calculateSliceAngle(int index, int itemCount) {
-  final anglePerChild = 2 * _math.pi / itemCount;
+  final anglePerChild = 2 * math.pi / itemCount;
   final childAngle = anglePerChild * index;
   // first slice starts at 90 degrees, if 0 degrees is at the top.
   // The angle offset puts the center of the first slice at the top.
-  final angleOffset = -(_math.pi / 2 + anglePerChild / 2);
+  final angleOffset = -(math.pi / 2 + anglePerChild / 2);
   return childAngle + angleOffset;
 }
 
 double _calculateAlignmentOffset(Alignment alignment) {
   if (alignment == Alignment.topRight) {
-    return _math.pi * 0.25;
+    return math.pi * 0.25;
   }
 
   if (alignment == Alignment.centerRight) {
-    return _math.pi * 0.5;
+    return math.pi * 0.5;
   }
 
   if (alignment == Alignment.bottomRight) {
-    return _math.pi * 0.75;
+    return math.pi * 0.75;
   }
 
   if (alignment == Alignment.bottomCenter) {
-    return _math.pi;
+    return math.pi;
   }
 
   if (alignment == Alignment.bottomLeft) {
-    return _math.pi * 1.25;
+    return math.pi * 1.25;
   }
 
   if (alignment == Alignment.centerLeft) {
-    return _math.pi * 1.5;
+    return math.pi * 1.5;
   }
 
   if (alignment == Alignment.topLeft) {
-    return _math.pi * 1.75;
+    return math.pi * 1.75;
   }
 
   return 0;
@@ -68,7 +68,7 @@ class _WheelData {
   );
   late final double diameter = smallerSide;
   late final double radius = diameter / 2;
-  late final double itemAngle = 2 * _math.pi / itemCount;
+  late final double itemAngle = 2 * math.pi / itemCount;
 
   _WheelData({
     required this.constraints,
@@ -101,39 +101,51 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
   static const StyleStrategy kDefaultStyleStrategy = AlternatingStyleStrategy();
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.items}
+  @override
   final List<FortuneItem> items;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.selected}
+  @override
   final Stream<int> selected;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.rotationCount}
+  @override
   final int rotationCount;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.duration}
+  @override
   final Duration duration;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.indicators}
+  @override
   final List<FortuneIndicator> indicators;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.animationType}
+  @override
   final Curve curve;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.onAnimationStart}
+  @override
   final VoidCallback? onAnimationStart;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.onAnimationEnd}
+  @override
   final VoidCallback? onAnimationEnd;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.styleStrategy}
+  @override
   final StyleStrategy styleStrategy;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.animateFirst}
+  @override
   final bool animateFirst;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.physics}
+  @override
   final PanPhysics physics;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.onFling}
+  @override
   final VoidCallback? onFling;
 
   /// The position to which the wheel aligns the selected value.
@@ -151,7 +163,7 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
   final ValueChanged<int>? onFocusItemChanged;
 
   double _getAngle(double progress) {
-    return 2 * _math.pi * rotationCount * progress;
+    return 2 * math.pi * rotationCount * progress;
   }
 
   /// {@template flutter_fortune_wheel.FortuneWheel}
@@ -164,7 +176,7 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
   ///  * [FortuneBar], which provides an alternative visualization.
   /// {@endtemplate}
   FortuneWheel({
-    Key? key,
+    super.key,
     required this.items,
     this.rotationCount = FortuneWidget.kDefaultRotationCount,
     this.selected = const Stream<int>.empty(),
@@ -181,8 +193,7 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
     this.onFling,
     this.onFocusItemChanged,
   })  : physics = physics ?? CircularPanPhysics(),
-        assert(items.length > 1),
-        super(key: key);
+        assert(items.length > 1);
 
   @override
   Widget build(BuildContext context) {
@@ -244,7 +255,7 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
                   final isAnimatingPanFactor =
                       rotateAnimCtrl.isAnimating ? 0 : 1;
                   final selectedAngle =
-                      -2 * _math.pi * (selectedIndex.value / items.length);
+                      -2 * math.pi * (selectedIndex.value / items.length);
                   final panAngle =
                       panState.distance * panFactor * isAnimatingPanFactor;
                   final rotationAngle = _getAngle(rotateAnim.value);
@@ -299,7 +310,7 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
     HapticImpact hapticImpact,
   ) {
     final step = 360 / itemsNumber;
-    final angleDegrees = (angle * 180 / _math.pi).abs() + step / 2;
+    final angleDegrees = (angle * 180 / math.pi).abs() + step / 2;
     if (step.isNaN ||
         angleDegrees.isNaN ||
         lastVibratedAngle.value.isNaN ||
@@ -312,7 +323,7 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
       return null;
     }
     final index = angleDegrees ~/ step * angle.sign.toInt() * -1;
-    final hapticFeedbackFunction;
+    final Future<void> Function() hapticFeedbackFunction;
     switch (hapticImpact) {
       case HapticImpact.none:
         return index;

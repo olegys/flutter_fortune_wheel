@@ -5,7 +5,7 @@ void main() {
   group('TriangleIndicator', () {
     testWidgets('', (tester) async {
       await tester.pumpWidget(
-        TriangleIndicator(),
+        const TriangleIndicator(),
       );
     });
   });

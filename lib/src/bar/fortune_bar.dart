@@ -26,36 +26,47 @@ class FortuneBar extends HookWidget implements FortuneWidget {
   final double height;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.items}
+  @override
   final List<FortuneItem> items;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.selected}
+  @override
   final Stream<int> selected;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.rotationCount}
+  @override
   final int rotationCount;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.duration}
+  @override
   final Duration duration;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.indicators}
+  @override
   final List<FortuneIndicator> indicators;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.animationType}
+  @override
   final Curve curve;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.onAnimationStart}
+  @override
   final VoidCallback? onAnimationStart;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.onAnimationEnd}
+  @override
   final VoidCallback? onAnimationEnd;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.styleStrategy}
+  @override
   final StyleStrategy styleStrategy;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.physics}
+  @override
   final PanPhysics physics;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.onFling}
+  @override
   final VoidCallback? onFling;
 
   /// If this value is true, this widget expands to the screen width and ignores
@@ -65,6 +76,7 @@ class FortuneBar extends HookWidget implements FortuneWidget {
   final bool fullWidth;
 
   /// {@macro flutter_fortune_wheel.FortuneWidget.animateFirst}
+  @override
   final bool animateFirst;
 
   final int visibleItemCount;
@@ -79,7 +91,7 @@ class FortuneBar extends HookWidget implements FortuneWidget {
   ///  * [FortuneWheel], which provides an alternative visualization.
   /// {@endtemplate}
   FortuneBar({
-    Key? key,
+    super.key,
     this.height = 56.0,
     this.duration = FortuneWidget.kDefaultDuration,
     this.onAnimationStart,
@@ -95,12 +107,11 @@ class FortuneBar extends HookWidget implements FortuneWidget {
     this.visibleItemCount = kDefaultVisibleItemCount,
     this.onFling,
     PanPhysics? physics,
-  })  : physics = physics ?? DirectionalPanPhysics.horizontal(),
-        super(key: key);
+  }) : physics = physics ?? DirectionalPanPhysics.horizontal();
 
   @override
   Widget build(BuildContext context) {
-    final visibleItemCount = _math.min(this.visibleItemCount, items.length);
+    final visibleItemCount = math.min(this.visibleItemCount, items.length);
     final animationCtrl = useAnimationController(duration: duration);
     final animation = CurvedAnimation(parent: animationCtrl, curve: curve);
 

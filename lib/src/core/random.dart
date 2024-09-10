@@ -12,13 +12,13 @@ abstract class Fortune {
   ///
   /// An instance of [_math.Random] can optionally be passed to customize the
   /// random sample distribution.
-  static int randomInt(int min, int max, [_math.Random? random]) {
-    random = random ?? _math.Random();
+  static int randomInt(int min, int max, [math.Random? random]) {
+    random = random ?? math.Random();
     if (min == max) {
       return min;
     }
-    final _rng = _math.Random();
-    return min + _rng.nextInt(max - min);
+    final rng = math.Random();
+    return min + rng.nextInt(max - min);
   }
 
   /// Generates a random [Duration] uniformly distributed in the range
@@ -32,9 +32,9 @@ abstract class Fortune {
   static Duration randomDuration(
     Duration min,
     Duration max, [
-    _math.Random? random,
+    math.Random? random,
   ]) {
-    random = random ?? _math.Random();
+    random = random ?? math.Random();
     return Duration(
       milliseconds: randomInt(min.inMilliseconds, max.inMilliseconds, random),
     );
@@ -46,8 +46,8 @@ abstract class Fortune {
   ///
   /// An instance of [_math.Random] can optionally be passed to customize the
   /// random sample distribution.
-  static T randomItem<T>(Iterable<T> iterable, [_math.Random? random]) {
-    random = random ?? _math.Random();
+  static T randomItem<T>(Iterable<T> iterable, [math.Random? random]) {
+    random = random ?? math.Random();
     return iterable.elementAt(
       randomInt(0, iterable.length, random),
     );

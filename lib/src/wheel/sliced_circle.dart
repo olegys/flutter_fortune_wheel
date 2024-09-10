@@ -7,12 +7,11 @@ class _TransformedCircleSlice extends StatelessWidget {
   final int index;
 
   const _TransformedCircleSlice({
-    Key? key,
     required this.item,
     required this.styleStrategy,
     required this.index,
     required this.wheelData,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +21,17 @@ class _TransformedCircleSlice extends StatelessWidget {
 
     return _CircleSliceLayout(
       handler: item,
-      child: DefaultTextStyle(
-        textAlign: style.textAlign,
-        style: style.textStyle,
-        child: item.child,
-      ),
       slice: _CircleSlice(
         radius: wheelData.radius,
         angle: wheelData.itemAngle,
         fillColor: style.color,
         strokeColor: style.borderColor,
         strokeWidth: style.borderWidth,
+      ),
+      child: DefaultTextStyle(
+        textAlign: style.textAlign,
+        style: style.textStyle,
+        child: item.child,
       ),
     );
   }
@@ -44,11 +43,10 @@ class _CircleSlices extends StatelessWidget {
   final _WheelData wheelData;
 
   const _CircleSlices({
-    Key? key,
     required this.items,
     required this.styleStrategy,
     required this.wheelData,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

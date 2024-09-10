@@ -24,7 +24,7 @@ Offset _getOffset(Alignment alignment, Offset margins) {
     return margins.scale(-1, 0);
   }
   if (alignment == Alignment.center) {
-    return Offset(0, 0);
+    return const Offset(0, 0);
   }
 
   throw ArgumentError('Alignments on the diagonals are not yet supported');
@@ -35,13 +35,13 @@ double _getAngle(Alignment alignment) {
     return 0;
   }
   if (alignment == Alignment.bottomCenter) {
-    return _math.pi;
+    return math.pi;
   }
   if (alignment == Alignment.centerLeft) {
-    return -_math.pi * 0.5;
+    return -math.pi * 0.5;
   }
   if (alignment == Alignment.centerRight) {
-    return _math.pi * 0.5;
+    return math.pi * 0.5;
   }
 
   throw ArgumentError('Alignments on the diagonals are not yet supported');
@@ -51,9 +51,8 @@ class _WheelIndicator extends StatelessWidget {
   final FortuneIndicator indicator;
 
   const _WheelIndicator({
-    Key? key,
     required this.indicator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

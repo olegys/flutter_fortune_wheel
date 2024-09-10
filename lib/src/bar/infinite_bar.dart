@@ -21,13 +21,12 @@ class _InfiniteBar extends StatelessWidget {
   final Size size;
 
   const _InfiniteBar({
-    Key? key,
     required this.children,
     required this.size,
     required this.visibleItemCount,
     this.position = -1,
     this.centerPosition = 0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -78,16 +78,16 @@ void main() {
 
   group('rotateVector', () {
     test('returns the same vector for angle of 0 radians', () {
-      final inputVector = Point(14.0, 14.0);
-      final angle = 0.0;
+      const inputVector = Point(14.0, 14.0);
+      const angle = 0.0;
       final rotatedVector = inputVector.rotate(angle);
       expect(rotatedVector.x, moreOrLessEquals(inputVector.x));
       expect(rotatedVector.y, moreOrLessEquals(inputVector.y));
     });
 
     test('returns the same vector for angle of 2 * pi radians', () {
-      final inputVector = Point(14.0, 14.0);
-      final angle = pi * 2;
+      const inputVector = Point(14.0, 14.0);
+      const angle = pi * 2;
       final rotatedVector = inputVector.rotate(angle);
       expect(rotatedVector.x, moreOrLessEquals(inputVector.x));
       expect(rotatedVector.y, moreOrLessEquals(inputVector.y));
@@ -96,19 +96,19 @@ void main() {
 
   group('getSmallerSide', () {
     test('always returns the size of the smallest constrained side', () {
-      final equalSides = BoxConstraints(
+      const equalSides = BoxConstraints(
         maxWidth: 100,
         maxHeight: 100,
       );
       expect(getSmallerSide(equalSides), moreOrLessEquals(100));
 
-      final smallHeight = BoxConstraints(
+      const smallHeight = BoxConstraints(
         maxWidth: 200,
         maxHeight: 50,
       );
       expect(getSmallerSide(smallHeight), moreOrLessEquals(50));
 
-      final smallWidth = BoxConstraints(
+      const smallWidth = BoxConstraints(
         maxWidth: 10,
         maxHeight: 200,
       );
@@ -118,21 +118,21 @@ void main() {
 
   group('getCenteredMargins', () {
     test('returns correct offset', () {
-      var offset = getCenteredMargins(BoxConstraints(
+      var offset = getCenteredMargins(const BoxConstraints(
         maxWidth: 200,
         maxHeight: 100,
       ));
       expect(offset.dx, moreOrLessEquals(50));
       expect(offset.dy, moreOrLessEquals(0));
 
-      offset = getCenteredMargins(BoxConstraints(
+      offset = getCenteredMargins(const BoxConstraints(
         maxWidth: 100,
         maxHeight: 300,
       ));
       expect(offset.dx, moreOrLessEquals(0));
       expect(offset.dy, moreOrLessEquals(100));
 
-      offset = getCenteredMargins(BoxConstraints(
+      offset = getCenteredMargins(const BoxConstraints(
         maxWidth: 50,
         maxHeight: 50,
       ));

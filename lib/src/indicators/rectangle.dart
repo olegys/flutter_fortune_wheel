@@ -8,13 +8,12 @@ class _Rectangle extends StatelessWidget {
   final Color color;
 
   const _Rectangle({
-    Key? key,
     required this.width,
     required this.height,
-    this.borderWidth = 2,
+    this.borderWidth = 2.0,
     this.borderColor = Colors.black,
     this.color = Colors.transparent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

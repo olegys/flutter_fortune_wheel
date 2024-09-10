@@ -1,8 +1,14 @@
-include: package:effective_dart/analysis_options.yaml
-
-analyzer:
-  exclude: [ lib/**/*.gr.dart ]
+include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    avoid_print: true
+    prefer_single_quotes: true
+    prefer_relative_imports: true
     public_member_api_docs: false
+
+analyzer:
+  exclude:
+    - [ lib/**/*.gr.dart ]
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'

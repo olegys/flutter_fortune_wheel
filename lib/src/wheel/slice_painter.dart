@@ -12,12 +12,12 @@ class _CircleSlicePainter extends CustomPainter {
     required this.fillColor,
     this.strokeColor,
     this.strokeWidth = 1,
-    this.angle = _math.pi / 2,
-  }) : assert(angle > 0 && angle < 2 * _math.pi);
+    this.angle = math.pi / 2,
+  }) : assert(angle > 0 && angle < 2 * math.pi);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final radius = _math.min(size.width, size.height);
+    final radius = math.min(size.width, size.height);
     final path = _CircleSlice.buildSlicePath(radius, angle);
 
     // fill slice area
@@ -42,7 +42,7 @@ class _CircleSlicePainter extends CustomPainter {
         Path()
           ..arcTo(
               Rect.fromCircle(
-                center: Offset(0, 0),
+                center: const Offset(0, 0),
                 radius: radius,
               ),
               0,

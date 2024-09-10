@@ -222,8 +222,10 @@ class TransformedFortuneItem implements FortuneItem {
     this.offset = Offset.zero,
   }) : _item = item;
 
+  @override
   Widget get child => _item.child;
 
+  @override
   FortuneItemStyle? get style => _item.style;
 
   @override

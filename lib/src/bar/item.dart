@@ -5,10 +5,9 @@ class _FortuneBarItem extends StatelessWidget {
   final FortuneItemStyle style;
 
   const _FortuneBarItem({
-    Key? key,
     required this.item,
     this.style = const FortuneItemStyle(),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

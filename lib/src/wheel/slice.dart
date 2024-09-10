@@ -7,7 +7,7 @@ class _CircleSlice extends StatelessWidget {
       ..lineTo(radius, 0)
       ..arcTo(
           Rect.fromCircle(
-            center: Offset(0, 0),
+            center: const Offset(0, 0),
             radius: radius,
           ),
           0,
@@ -23,14 +23,12 @@ class _CircleSlice extends StatelessWidget {
   final double strokeWidth;
 
   const _CircleSlice({
-    Key? key,
     required this.radius,
     required this.fillColor,
     required this.strokeColor,
     this.strokeWidth = 1,
     required this.angle,
-  })  : assert(radius > 0),
-        super(key: key);
+  }) : assert(radius > 0);
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +53,10 @@ class _CircleSliceLayout extends StatelessWidget {
   final GestureHandler? handler;
 
   const _CircleSliceLayout({
-    Key? key,
     required this.slice,
     this.child,
     this.handler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
