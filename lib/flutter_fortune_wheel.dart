@@ -8,7 +8,7 @@
 ///    for more details about its usage
 ///  * [Package Repository](https://github.com/kevlatus/flutter_fortune_wheel)
 ///    for its source code and community
-library flutter_fortune_wheel;
+library;
 
 export 'package:flutter_fortune_wheel/src/bar/bar.dart';
 export 'package:flutter_fortune_wheel/src/core/core.dart';
