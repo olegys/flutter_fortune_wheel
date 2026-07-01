@@ -17,47 +17,45 @@ class RectangleIndicator extends StatelessWidget {
     final borderColor =
         this.borderColor ?? Theme.of(context).colorScheme.secondary;
 
-    return LayoutBuilder(builder: (context, constraints) {
-      final width = constraints.maxWidth;
-      final height = constraints.maxHeight;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final height = constraints.maxHeight;
 
-      return Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: _Rectangle(
-              width: width,
-              height: height,
-              borderColor: borderColor,
-              borderWidth: borderWidth,
-              color: color,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: width / 2,
-              height: height / 10,
-              child: _Triangle(
-                color: borderColor,
+        return Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: _Rectangle(
+                width: width,
+                height: height,
+                borderColor: borderColor,
+                borderWidth: borderWidth,
+                color: color,
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Transform.rotate(
-              angle: math.pi,
+            Align(
+              alignment: Alignment.bottomCenter,
               child: SizedBox(
                 width: width / 2,
                 height: height / 10,
-                child: _Triangle(
-                  color: borderColor,
+                child: _Triangle(color: borderColor),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Transform.rotate(
+                angle: math.pi,
+                child: SizedBox(
+                  width: width / 2,
+                  height: height / 10,
+                  child: _Triangle(color: borderColor),
                 ),
               ),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }

@@ -217,10 +217,10 @@ class TransformedFortuneItem implements FortuneItem {
   final Offset offset;
 
   const TransformedFortuneItem({
-    required FortuneItem item,
+    required this._item,
     this.angle = 0.0,
     this.offset = Offset.zero,
-  }) : _item = item;
+  });
 
   @override
   Widget get child => _item.child;

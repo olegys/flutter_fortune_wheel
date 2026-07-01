@@ -3,7 +3,9 @@ part of 'wheel.dart';
 enum HapticImpact { none, light, medium, heavy }
 
 Offset _calculateWheelOffset(
-    BoxConstraints constraints, TextDirection textDirection) {
+  BoxConstraints constraints,
+  TextDirection textDirection,
+) {
   final smallerSide = getSmallerSide(constraints);
   var offsetX = constraints.maxWidth / 2;
   if (textDirection == TextDirection.rtl) {
@@ -192,8 +194,8 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
     PanPhysics? physics,
     this.onFling,
     this.onFocusItemChanged,
-  })  : physics = physics ?? CircularPanPhysics(),
-        assert(items.length > 1);
+  }) : physics = physics ?? CircularPanPhysics(),
+       assert(items.length > 1);
 
   @override
   Widget build(BuildContext context) {
@@ -245,58 +247,62 @@ class FortuneWheel extends HookWidget implements FortuneWidget {
                 final meanSize = (size.width + size.height) / 2;
                 final panFactor = 6 / meanSize;
 
-                return LayoutBuilder(builder: (context, constraints) {
-                  final wheelData = _WheelData(
-                    constraints: constraints,
-                    itemCount: items.length,
-                    textDirection: Directionality.of(context),
-                  );
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    final wheelData = _WheelData(
+                      constraints: constraints,
+                      itemCount: items.length,
+                      textDirection: Directionality.of(context),
+                    );
 
-                  final isAnimatingPanFactor =
-                      rotateAnimCtrl.isAnimating ? 0 : 1;
-                  final selectedAngle =
-                      -2 * math.pi * (selectedIndex.value / items.length);
-                  final panAngle =
-                      panState.distance * panFactor * isAnimatingPanFactor;
-                  final rotationAngle = _getAngle(rotateAnim.value);
-                  final alignmentOffset = _calculateAlignmentOffset(alignment);
-                  final totalAngle = selectedAngle + panAngle + rotationAngle;
+                    final isAnimatingPanFactor = rotateAnimCtrl.isAnimating
+                        ? 0
+                        : 1;
+                    final selectedAngle =
+                        -2 * math.pi * (selectedIndex.value / items.length);
+                    final panAngle =
+                        panState.distance * panFactor * isAnimatingPanFactor;
+                    final rotationAngle = _getAngle(rotateAnim.value);
+                    final alignmentOffset = _calculateAlignmentOffset(
+                      alignment,
+                    );
+                    final totalAngle = selectedAngle + panAngle + rotationAngle;
 
-                  final focusedIndex = _vibrateIfBorderCrossed(
-                    totalAngle,
-                    lastVibratedAngle,
-                    items.length,
-                    hapticImpact,
-                  );
-                  if (focusedIndex != null) {
-                    onFocusItemChanged?.call(focusedIndex % items.length);
-                  }
+                    final focusedIndex = _vibrateIfBorderCrossed(
+                      totalAngle,
+                      lastVibratedAngle,
+                      items.length,
+                      hapticImpact,
+                    );
+                    if (focusedIndex != null) {
+                      onFocusItemChanged?.call(focusedIndex % items.length);
+                    }
 
-                  final transformedItems = [
-                    for (var i = 0; i < items.length; i++)
-                      TransformedFortuneItem(
-                        item: items[i],
-                        angle: totalAngle +
-                            alignmentOffset +
-                            _calculateSliceAngle(i, items.length),
-                        offset: wheelData.offset,
+                    final transformedItems = [
+                      for (var i = 0; i < items.length; i++)
+                        TransformedFortuneItem(
+                          item: items[i],
+                          angle:
+                              totalAngle +
+                              alignmentOffset +
+                              _calculateSliceAngle(i, items.length),
+                          offset: wheelData.offset,
+                        ),
+                    ];
+
+                    return SizedBox.expand(
+                      child: _CircleSlices(
+                        items: transformedItems,
+                        wheelData: wheelData,
+                        styleStrategy: styleStrategy,
                       ),
-                  ];
-
-                  return SizedBox.expand(
-                    child: _CircleSlices(
-                      items: transformedItems,
-                      wheelData: wheelData,
-                      styleStrategy: styleStrategy,
-                    ),
-                  );
-                });
+                    );
+                  },
+                );
               },
             ),
             for (var it in indicators)
-              IgnorePointer(
-                child: _WheelIndicator(indicator: it),
-              ),
+              IgnorePointer(child: _WheelIndicator(indicator: it)),
           ],
         );
       },

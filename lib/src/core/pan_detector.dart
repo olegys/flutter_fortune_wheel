@@ -22,11 +22,7 @@ class PanState {
   });
 
   /// Returns a copy of this [PanState] instance updated with the given values.
-  PanState copyWith({
-    bool? isPanning,
-    double? distance,
-    bool? wasFlung,
-  }) =>
+  PanState copyWith({bool? isPanning, double? distance, bool? wasFlung}) =>
       PanState(
         distance: distance ?? this.distance,
         isPanning: isPanning ?? this.isPanning,
@@ -46,11 +42,7 @@ class PanState {
 
   @override
   String toString() {
-    return "PanState ${{
-      "distance": distance,
-      "isPanning": isPanning,
-      "wasFlung": wasFlung,
-    }}";
+    return "PanState ${{"distance": distance, "isPanning": isPanning, "wasFlung": wasFlung}}";
   }
 }
 
@@ -200,8 +192,9 @@ class CircularPanPhysics extends PanPhysics {
         ? yChange
         : yChange * -1;
 
-    final horizontalRotation =
-        (onTop && panRight) || (onBottom && panLeft) ? xChange : xChange * -1;
+    final horizontalRotation = (onTop && panRight) || (onBottom && panLeft)
+        ? xChange
+        : xChange * -1;
 
     final rotationalChange = verticalRotation + horizontalRotation;
 
@@ -243,27 +236,19 @@ class DirectionalPanPhysics extends PanPhysics {
 
   DirectionalPanPhysics._({
     required this.curve,
-    required double direction,
+    required this._direction,
     required this.duration,
-  }) : _direction = direction;
+  });
 
   DirectionalPanPhysics.horizontal({
     Curve curve = PanPhysics.kDefaultCurve,
     Duration duration = PanPhysics.kDefaultDuration,
-  }) : this._(
-          curve: curve,
-          direction: 1.0,
-          duration: duration,
-        );
+  }) : this._(curve: curve, direction: 1.0, duration: duration);
 
   DirectionalPanPhysics.vertical({
     Curve curve = PanPhysics.kDefaultCurve,
     Duration duration = PanPhysics.kDefaultDuration,
-  }) : this._(
-          curve: curve,
-          direction: -1.0,
-          duration: duration,
-        );
+  }) : this._(curve: curve, direction: -1.0, duration: duration);
 
   /// {@macro flutter_fortune_wheel.PanPhysics.handlePanStart}
   @override
@@ -334,16 +319,16 @@ class PanAwareBuilder extends HookWidget {
       curve: physics.curve,
     );
 
-    useValueChanged<bool, Future<void>>(
-      panState.isPanning,
-      (oldValue, _) async {
-        if (!oldValue) {
-          returnAnimCtrl.reset();
-        } else {
-          await returnAnimCtrl.forward(from: 0.0);
-        }
-      },
-    );
+    useValueChanged<bool, Future<void>>(panState.isPanning, (
+      oldValue,
+      _,
+    ) async {
+      if (!oldValue) {
+        returnAnimCtrl.reset();
+      } else {
+        await returnAnimCtrl.forward(from: 0.0);
+      }
+    });
 
     useValueChanged<bool, Future<void>>(panState.wasFlung, (oldValue, _) async {
       if (panState.wasFlung) {
@@ -351,18 +336,20 @@ class PanAwareBuilder extends HookWidget {
       }
     });
 
-    return LayoutBuilder(builder: (context, constraints) {
-      physics.size = Size(constraints.maxWidth, constraints.maxHeight);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        physics.size = Size(constraints.maxWidth, constraints.maxHeight);
 
-      return GestureDetector(
-        behavior: behavior,
-        onPanStart: physics.handlePanStart,
-        onPanUpdate: physics.handlePanUpdate,
-        onPanEnd: physics.handlePanEnd,
-        child: AnimatedBuilder(
+        return GestureDetector(
+          behavior: behavior,
+          onPanStart: physics.handlePanStart,
+          onPanUpdate: physics.handlePanUpdate,
+          onPanEnd: physics.handlePanEnd,
+          child: AnimatedBuilder(
             animation: returnAnim,
             builder: (context, _) {
-              final mustApplyEasing = returnAnimCtrl.isAnimating ||
+              final mustApplyEasing =
+                  returnAnimCtrl.isAnimating ||
                   returnAnimCtrl.status == AnimationStatus.completed;
 
               if (mustApplyEasing) {
@@ -371,11 +358,11 @@ class PanAwareBuilder extends HookWidget {
                 );
               }
 
-              return Builder(
-                builder: (context) => builder(context, panState),
-              );
-            }),
-      );
-    });
+              return Builder(builder: (context) => builder(context, panState));
+            },
+          ),
+        );
+      },
+    );
   }
 }

@@ -48,8 +48,6 @@ abstract class Fortune {
   /// random sample distribution.
   static T randomItem<T>(Iterable<T> iterable, [math.Random? random]) {
     random = random ?? math.Random();
-    return iterable.elementAt(
-      randomInt(0, iterable.length, random),
-    );
+    return iterable.elementAt(randomInt(0, iterable.length, random));
   }
 }

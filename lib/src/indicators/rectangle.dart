@@ -22,10 +22,7 @@ class _Rectangle extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: color,
-        border: Border.all(
-          color: borderColor,
-          width: borderWidth,
-        ),
+        border: Border.all(color: borderColor, width: borderWidth),
       ),
     );
   }

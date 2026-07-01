@@ -43,10 +43,7 @@ class _Triangle extends StatelessWidget {
   final Color color;
   final double elevation;
 
-  const _Triangle({
-    required this.color,
-    this.elevation = 0,
-  });
+  const _Triangle({required this.color, this.elevation = 0});
 
   @override
   Widget build(BuildContext context) {

@@ -31,7 +31,8 @@ class _InfiniteBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLengthTwo = children.length == 2;
-    final position = (-this.position + centerPosition) % children.length -
+    final position =
+        (-this.position + centerPosition) % children.length -
         (isLengthTwo ? 0.5 : 0.0);
     final isLockedIn = this.position % 1 == 0;
     final overflowItemCount = position.ceil() + (isLockedIn ? 1 : 0);
@@ -61,10 +62,11 @@ class _InfiniteBar extends StatelessWidget {
                 child: SizedBox(
                   width: itemWidth,
                   height: size.height,
-                  child: children[(i -
-                          overflowItemCount -
-                          (isLengthTwo && isLockedIn ? 1 : 0)) %
-                      children.length],
+                  child:
+                      children[(i -
+                              overflowItemCount -
+                              (isLengthTwo && isLockedIn ? 1 : 0)) %
+                          children.length],
                 ),
               ),
             for (int i = 0; i < children.length; i++)

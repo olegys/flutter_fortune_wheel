@@ -19,8 +19,9 @@ class FortuneBar extends HookWidget implements FortuneWidget {
     ),
   ];
 
-  static const StyleStrategy kDefaultStyleStrategy =
-      UniformStyleStrategy(borderWidth: 4);
+  static const StyleStrategy kDefaultStyleStrategy = UniformStyleStrategy(
+    borderWidth: 4,
+  );
 
   /// Requires this widget to have exactly this height.
   final double height;
@@ -144,11 +145,12 @@ class FortuneBar extends HookWidget implements FortuneWidget {
     final theme = Theme.of(context);
 
     return PanAwareBuilder(
-        behavior: HitTestBehavior.translucent,
-        physics: physics,
-        onFling: onFling,
-        builder: (context, panState) {
-          return LayoutBuilder(builder: (context, constraints) {
+      behavior: HitTestBehavior.translucent,
+      physics: physics,
+      onFling: onFling,
+      builder: (context, panState) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
             final size = Size(
               fullWidth
                   ? MediaQuery.of(context).size.width
@@ -159,35 +161,38 @@ class FortuneBar extends HookWidget implements FortuneWidget {
             return Stack(
               children: [
                 AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, _) {
-                      final itemPosition =
-                          (items.length * rotationCount + selectedIndex.value);
-                      final isAnimatingPanFactor =
-                          animationCtrl.isAnimating ? 0 : 1;
-                      final panFactor = 2 / size.width;
-                      final panOffset = -panState.distance * panFactor;
-                      final position = animation.value * itemPosition +
-                          panOffset * isAnimatingPanFactor;
+                  animation: animation,
+                  builder: (context, _) {
+                    final itemPosition =
+                        (items.length * rotationCount + selectedIndex.value);
+                    final isAnimatingPanFactor = animationCtrl.isAnimating
+                        ? 0
+                        : 1;
+                    final panFactor = 2 / size.width;
+                    final panOffset = -panState.distance * panFactor;
+                    final position =
+                        animation.value * itemPosition +
+                        panOffset * isAnimatingPanFactor;
 
-                      return _InfiniteBar(
-                        centerPosition: 1,
-                        visibleItemCount: visibleItemCount,
-                        size: size,
-                        position: position,
-                        children: [
-                          for (int i = 0; i < items.length; i++)
-                            _FortuneBarItem(
-                              item: items[i],
-                              style: styleStrategy.getItemStyle(
-                                theme,
-                                i,
-                                items.length,
-                              ),
-                            )
-                        ],
-                      );
-                    }),
+                    return _InfiniteBar(
+                      centerPosition: 1,
+                      visibleItemCount: visibleItemCount,
+                      size: size,
+                      position: position,
+                      children: [
+                        for (int i = 0; i < items.length; i++)
+                          _FortuneBarItem(
+                            item: items[i],
+                            style: styleStrategy.getItemStyle(
+                              theme,
+                              i,
+                              items.length,
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
                 for (var it in indicators)
                   IgnorePointer(
                     child: Align(
@@ -201,7 +206,9 @@ class FortuneBar extends HookWidget implements FortuneWidget {
                   ),
               ],
             );
-          });
-        });
+          },
+        );
+      },
+    );
   }
 }

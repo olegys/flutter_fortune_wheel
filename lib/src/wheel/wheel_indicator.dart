@@ -2,14 +2,15 @@ part of 'wheel.dart';
 
 Offset _getOffset(Alignment alignment, Offset margins) {
   assert(
-      <Alignment>[
-        Alignment.topCenter,
-        Alignment.bottomCenter,
-        Alignment.centerLeft,
-        Alignment.centerRight,
-        Alignment.center,
-      ].contains(alignment),
-      'Alignments on the diagonals are not yet supported.');
+    <Alignment>[
+      Alignment.topCenter,
+      Alignment.bottomCenter,
+      Alignment.centerLeft,
+      Alignment.centerRight,
+      Alignment.center,
+    ].contains(alignment),
+    'Alignments on the diagonals are not yet supported.',
+  );
 
   if (alignment == Alignment.topCenter) {
     return margins.scale(0, 1);
@@ -50,9 +51,7 @@ double _getAngle(Alignment alignment) {
 class _WheelIndicator extends StatelessWidget {
   final FortuneIndicator indicator;
 
-  const _WheelIndicator({
-    required this.indicator,
-  });
+  const _WheelIndicator({required this.indicator});
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +65,7 @@ class _WheelIndicator extends StatelessWidget {
           alignment: indicator.alignment,
           child: Transform.translate(
             offset: offset,
-            child: Transform.rotate(
-              angle: angle,
-              child: indicator.child,
-            ),
+            child: Transform.rotate(angle: angle, child: indicator.child),
           ),
         );
       },

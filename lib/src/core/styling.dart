@@ -31,23 +31,18 @@ class FortuneItemStyle {
 
   /// Creates an opinionated disabled style based on the current [ThemeData].
   FortuneItemStyle.disabled(ThemeData theme, {double opacity = 0.0})
-      : this(
-          color: Color.alphaBlend(
-            theme.disabledColor.withOpacity(opacity),
-            theme.disabledColor,
-          ),
-          borderWidth: 0.0,
-          textStyle: TextStyle(color: theme.colorScheme.onPrimary),
-        );
+    : this(
+        color: Color.alphaBlend(
+          theme.disabledColor.withValues(alpha: opacity),
+          theme.disabledColor,
+        ),
+        borderWidth: 0.0,
+        textStyle: TextStyle(color: theme.colorScheme.onPrimary),
+      );
 
   @override
-  int get hashCode => hashObjects([
-        borderColor,
-        borderWidth,
-        color,
-        textAlign,
-        textStyle,
-      ]);
+  int get hashCode =>
+      hashObjects([borderColor, borderWidth, color, textAlign, textStyle]);
 
   @override
   bool operator ==(Object other) {
@@ -67,11 +62,7 @@ abstract class StyleStrategy {
   /// Creates an [FortuneItemStyle] based on the passed [theme] while
   /// considering an item's [index] with respect to the overall [itemCount].
   /// {@endtemplate}
-  FortuneItemStyle getItemStyle(
-    ThemeData theme,
-    int index,
-    int itemCount,
-  );
+  FortuneItemStyle getItemStyle(ThemeData theme, int index, int itemCount);
 }
 
 /// Mixin to allow style strategies to have a common style for disabled items.
@@ -132,9 +123,10 @@ class UniformStyleStrategy
       index,
       itemCount,
       () => FortuneItemStyle(
-        color: color ??
+        color:
+            color ??
             Color.alphaBlend(
-              theme.colorScheme.primary.withOpacity(0.3),
+              theme.colorScheme.primary.withValues(alpha: 0.3),
               theme.colorScheme.surface,
             ),
         borderColor: borderColor ?? theme.colorScheme.primary,
@@ -164,18 +156,13 @@ class AlternatingStyleStrategy
     final opacity = itemCount % 2 == 1 && index == 0
         ? 0.75
         : index % 2 == 0
-            ? 0.5
-            : 1.0;
+        ? 0.5
+        : 1.0;
 
-    return Color.alphaBlend(
-      color.withOpacity(opacity),
-      background,
-    );
+    return Color.alphaBlend(color.withValues(alpha: opacity), background);
   }
 
-  const AlternatingStyleStrategy({
-    this.disabledIndices = const <int>[],
-  });
+  const AlternatingStyleStrategy({this.disabledIndices = const <int>[]});
 
   /// {@macro flutter_fortune_wheel.StyleStrategy.getItemStyle}
   @override

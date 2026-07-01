@@ -6,13 +6,11 @@ class _CircleSlice extends StatelessWidget {
       ..moveTo(0, 0)
       ..lineTo(radius, 0)
       ..arcTo(
-          Rect.fromCircle(
-            center: const Offset(0, 0),
-            radius: radius,
-          ),
-          0,
-          angle,
-          false)
+        Rect.fromCircle(center: const Offset(0, 0), radius: radius),
+        0,
+        angle,
+        false,
+      )
       ..close();
   }
 
@@ -52,11 +50,7 @@ class _CircleSliceLayout extends StatelessWidget {
   final _CircleSlice slice;
   final GestureHandler? handler;
 
-  const _CircleSliceLayout({
-    required this.slice,
-    this.child,
-    this.handler,
-  });
+  const _CircleSliceLayout({required this.slice, this.child, this.handler});
 
   @override
   Widget build(BuildContext context) {
@@ -115,17 +109,11 @@ class _CircleSliceLayout extends StatelessWidget {
           child: CustomMultiChildLayout(
             delegate: _CircleSliceLayoutDelegate(slice.angle),
             children: [
-              LayoutId(
-                id: _SliceSlot.slice,
-                child: slice,
-              ),
+              LayoutId(id: _SliceSlot.slice, child: slice),
               if (child != null)
                 LayoutId(
                   id: _SliceSlot.child,
-                  child: Transform.rotate(
-                    angle: slice.angle / 2,
-                    child: child,
-                  ),
+                  child: Transform.rotate(angle: slice.angle / 2, child: child),
                 ),
             ],
           ),

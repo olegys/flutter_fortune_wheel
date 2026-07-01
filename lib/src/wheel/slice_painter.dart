@@ -39,15 +39,12 @@ class _CircleSlicePainter extends CustomPainter {
       );
 
       canvas.drawPath(
-        Path()
-          ..arcTo(
-              Rect.fromCircle(
-                center: const Offset(0, 0),
-                radius: radius,
-              ),
-              0,
-              angle,
-              false),
+        Path()..arcTo(
+          Rect.fromCircle(center: const Offset(0, 0), radius: radius),
+          0,
+          angle,
+          false,
+        ),
         Paint()
           ..color = strokeColor!
           ..strokeWidth = strokeWidth * 2
